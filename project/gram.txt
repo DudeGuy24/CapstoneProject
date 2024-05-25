@@ -1,0 +1,236 @@
+grammar Prog;
+ 
+start : t0 EOF
+    ;
+ 
+t0 : 'program' t13838 t5180 t14011 t14183
+    ;
+ 
+// t13838 : t13838 t101
+//     | t101 t13838
+//     | tlower
+//     ;
+
+// Left/right recursion elimination to +-lists.
+// There are left- right recursive alternatives, which means we can
+// independently listify those elements.
+// t13838 : t101+ t13838 t101+
+//     | tlower
+//     ;
+
+// Left/right recursion elimination to *-lists (fixpointing)
+// There are left- right recursive alternatives, which means we can
+// independently listify those elements; moreover, there's a list of
+// alternatives (here only tlower) that are not recursive, so we can
+// actually fixpoint.
+t13838 : t101* tlower t101*;
+
+ 
+t101 : ' '
+    | '\n'
+    ;
+ 
+// t5180 : t5180 t101
+//     | '='
+//     ;
+
+// Right-recursion elimination
+t5180 : '=' t101* ;
+ 
+t14011 : t14011 t101
+    | '{' t101 '}'
+    | '{' t13664 '}'
+    | '{' t15085 t11080 t10286 t12236 '}'
+    | '{' t15085 t11080 t10286 t7207 '}'
+    ;
+ 
+// t14183 : t14183 t101
+//     | '.'
+//     ;
+
+// Right-recursion elimination
+t14183 : '.' t101* ;
+ 
+t13664 : t13316 t12236
+    | t101 t13664
+    | t13664 t101
+    | t15621 t7207
+    | t14011 t7207
+    | t10486 t13664
+    | t13664 t13664
+    | t11858 t13664
+    | t13316 t7207
+    | t11858 t10486
+    ;
+ 
+t13316 : t13838 t9083
+    | t13490 t9083
+    ;
+ 
+// t9083 : t101 t9083
+//     | t5180 t1720
+//     | t5180 t13838
+//     | t9083 t101
+//     ;
+// Left/right recursion elimination with fixpoint, left-factoring of
+// alternatives
+t9083 : t101* (t5180 (t1720 | t13838)) t101*;
+ 
+t1720 : '(' t13838 ')'
+    | t13838 t3465
+    | '(' t1720 ')'
+    | '(' t13838 t9083 ')'
+    | tdigit
+    ;
+ 
+t12236 : t12421 t13664
+    | t7207 t13664
+    ;
+ 
+t12421 : t9486 t4974
+    | t7207 t10486
+    | t12421 t12048
+    ;
+ 
+t9486 : t9486 t101
+    | t7207 t11474
+    | t12421 t11474
+    ;
+ 
+// t7207 : t7207 t101
+//     | ';'
+//     ;
+// Right-recursion elimination
+t7207 : ';' t101* ;
+ 
+t11474 : 'while'
+    | t10486 t11474
+    | t11474 t101
+    | t101 t11474
+    | t13141 t11474
+    ;
+ 
+t4974 : t1720 t4763
+    | t13838 t4763
+    ;
+ 
+t4763 : t9083 t4763
+    | t101 t4763
+    | 'do'
+    | t3465 t4763
+    ;
+ 
+t15085 : t15085 t11080 t10286 t7207 t15085
+    | t101 t15085
+    | 'var' t13838
+    ;
+ 
+t11080 : t101 t11080
+    | ':'
+    ;
+ 
+t10286 : t101 t10286
+    | 'bool'
+    | 'int'
+    ;
+ 
+t3465 : t3465 t101
+    | t101 t3465
+    | t2800 t1720
+    | t2800 t13838
+    ;
+ 
+t2800 : t2800 t101
+    | '+'
+    ;
+ 
+t10486 : t13141 t12048
+    | t13141
+    | t10486 t10486
+    | t101 t10486
+    | t10486 t101
+    | t11858
+    | t13664
+    ;
+ 
+t13141 : t12965 t8051
+    | t10486 t13141
+    ;
+ 
+t12965 : t12965 t9083
+    | t12787 t13838
+    | t12965 t101
+    | t12787 t1720
+    ;
+ 
+t12787 : t12787 t101
+    | t101 t12787
+    | 'if'
+    | t13664 t12787
+    ;
+ 
+t8051 : t3465 t8051
+    | t8051 t101
+    | 'then'
+    ;
+ 
+t12048 : t15621 'else'
+    | t11858 t12048
+    ;
+ 
+t13490 : t13664 t13838
+    | t13141 t13838
+    ;
+ 
+t11858 : t11474 t4974
+    | t11858 t101
+    ;
+ 
+t15621 : t13838 t9083
+    | t15621 t101
+    | 'sleep'
+    ;
+ 
+tlower : 'a'
+    | 'b'
+    | 'c'
+    | 'd'
+    | 'e'
+    | 'f'
+    | 'g'
+    | 'h'
+    | 'i'
+    | 'j'
+    | 'k'
+    | 'l'
+    | 'm'
+    | 'n'
+    | 'o'
+    | 'p'
+    | 'q'
+    | 'r'
+    | 's'
+    | 't'
+    | 'u'
+    | 'v'
+    | 'w'
+    | 'x'
+    | 'y'
+    | 'z'
+    ;
+ 
+tdigit : '0'
+    | '1'
+    | '2'
+    | '3'
+    | '4'
+    | '5'
+    | '6'
+    | '7'
+    | '8'
+    | '9'
+    ;
+ 
+WS  : [ \t\r\n]+ -> skip
+    ;
+ 
