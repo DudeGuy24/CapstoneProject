@@ -6,10 +6,11 @@ import java.util.Map;
 
 public class myListener extends antlrParserBaseListener{
     
-    File file = null;
-    Map<String, List<String>> ruleMap = new HashMap<>();
+    private File file = null;
+    private Map<String, List<String>> ruleMap = new HashMap<>();
+    private String ruleRef;
+    private List<String> ruleBlockChildrenTexts = new ArrayList<>();
     
-
     /**
      * Sets the file currently being processed.
      *
@@ -24,15 +25,42 @@ public class myListener extends antlrParserBaseListener{
     }
     
     @Override public void enterParserRuleSpec(antlrParser.ParserRuleSpecContext ctx) { 
-        String ruleRef = ctx.RULE_REF().getText();
-        List<String> ruleBlockChildrenTexts = new ArrayList<>();
+        ruleRef = ctx.RULE_REF().getText();
+        //System.out.println(ruleRef);
 
-        for (int i = 0; i < ctx.ruleBlock().getChildCount(); i++) {
-            String childText = ctx.ruleBlock().getChild(i).getText();
-            ruleBlockChildrenTexts.add(childText);
-        }
-
-        ruleMap.put(ruleRef, ruleBlockChildrenTexts);
+        // for (int i = 0; i < ctx.ruleBlock().getChildCount(); i++) {
+        //     String childText = ctx.ruleBlock().getChild(i).getText();
+        // }
     }
 
+    @Override public void exitParserRuleSpec(antlrParser.ParserRuleSpecContext ctx) { 
+        ruleMap.put(ruleRef, ruleBlockChildrenTexts);
+        ruleBlockChildrenTexts = new ArrayList<>();
+    }
+
+    @Override public void enterRuleBlock(antlrParser.RuleBlockContext ctx) { 
+    }
+
+    @Override public void enterRuleAltList(antlrParser.RuleAltListContext ctx) { 
+    }
+
+    @Override public void enterLabeledAlt(antlrParser.LabeledAltContext ctx) { 
+    }
+
+    @Override public void enterAlternative(antlrParser.AlternativeContext ctx) { 
+        /*  : elementOptions? element+ | // explicitly allow empty alts */
+        // if (ctx.elementOptions() != null) {
+        //     String childText = ctx.elementOptions().getText();
+        //     ruleBlockChildrenTexts.add(childText);
+        // }
+        if (ctx.element() != null) {
+            for (antlrParser.ElementContext el : ctx.element()) {
+                String childText = el.getText();
+                //System.out.println(childText);
+                ruleBlockChildrenTexts.add(childText);
+            }
+        }
+        //System.out.println("Finished saving elements into ruleBlockChildren");
+        //System.out.println("ruleMap " + ruleMap);
+    }
 }
