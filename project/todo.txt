@@ -1,0 +1,5 @@
+Steps for project (draft)
+1. Java program that reads .g4 files
+2. From the .g4 files, extract the grammar left hand side (grammar rule name) and right hand side (what the rule does)  
+3. Put them into some kind of data structure (he said hashmap of lists)
+4. Figure out the rules for optimal grammar

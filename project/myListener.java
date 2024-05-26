@@ -12,13 +12,8 @@ public class myListener extends antlrParserBaseListener{
     public void setFile(File file){
         this.file = file;
     }
-    @Override public void enterGrammarSpec(antlrParser.GrammarSpecContext ctx) { 
-        /* : grammarDecl prequelConstruct* rules modeSpec* EOF */
-        System.out.println(" enterGrammarSpec ");
+    
+    @Override public void enterParserRuleSpec(antlrParser.ParserRuleSpecContext ctx) { 
+        System.out.println(ctx.RULE_REF().getText());
     }
-	
-	@Override public void exitGrammarSpec(antlrParser.GrammarSpecContext ctx) { 
-        System.out.println(" exitGrammarSpec ");
-    }
-	
 }

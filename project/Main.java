@@ -58,7 +58,7 @@ public class Main {
             ParseTree tree = parser.grammarSpec();
 
             myListener listener = new myListener();
-            listener.setFile(file);
+            //listener.setFile(file);
 
             ParseTreeWalker walker = new ParseTreeWalker();
             walker.walk(listener, tree);
