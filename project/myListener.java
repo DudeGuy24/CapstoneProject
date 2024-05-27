@@ -27,14 +27,22 @@ public class myListener extends antlrParserBaseListener{
             List<List<String>> value = entry.getValue();
             
             System.out.println("Key: " + key);
-            
+            boolean keyFound = false;
+
             for (List<String> innerList : value) {
                 System.out.print("  [");
                 for (String s : innerList) {
                     System.out.print(s + " ");
+                    if (s.equals(key)) {
+                        keyFound = true;
+                    }
                 }
                 System.out.println("]");
             }
+            if (keyFound) {
+                System.out.println("This rule contains LR recursion");
+            }
+            System.out.println("");
         }
     }
     
