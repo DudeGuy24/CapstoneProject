@@ -31,7 +31,7 @@ public class myListener extends antlrParserBaseListener{
             for (List<String> innerList : value) {
                 System.out.print("  [");
                 for (String s : innerList) {
-                    System.out.print(s + ", ");
+                    System.out.print(s + " ");
                 }
                 System.out.println("]");
             }
