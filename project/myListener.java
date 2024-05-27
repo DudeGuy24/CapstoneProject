@@ -7,9 +7,10 @@ import java.util.Map;
 public class myListener extends antlrParserBaseListener{
     
     private File file = null;
-    private Map<String, List<String>> ruleMap = new HashMap<>();
+    private Map<String, List<List<String>>> ruleMap = new HashMap<>();
     private String ruleRef;
-    private List<String> ruleBlockChildrenTexts = new ArrayList<>();
+    private List<List<String>> ruleBlockChildrenTexts = new ArrayList<>();
+    private List<String> alternativeList = new ArrayList<>();
     
     /**
      * Sets the file currently being processed.
@@ -20,8 +21,21 @@ public class myListener extends antlrParserBaseListener{
         this.file = file;
     }
 
-    public void printRuleMap(){
-        System.out.println(ruleMap);
+    public void printRuleMap() {
+        for (Map.Entry<String, List<List<String>>> entry : ruleMap.entrySet()) {
+            String key = entry.getKey();
+            List<List<String>> value = entry.getValue();
+            
+            System.out.println("Key: " + key);
+            
+            for (List<String> innerList : value) {
+                System.out.print("  [");
+                for (String s : innerList) {
+                    System.out.print(s + ", ");
+                }
+                System.out.println("]");
+            }
+        }
     }
     
     @Override public void enterParserRuleSpec(antlrParser.ParserRuleSpecContext ctx) { 
@@ -33,13 +47,19 @@ public class myListener extends antlrParserBaseListener{
         ruleBlockChildrenTexts = new ArrayList<>();
     }
 
+
     @Override public void enterAlternative(antlrParser.AlternativeContext ctx) { 
         /*  : elementOptions? element+ | // explicitly allow empty alts */
         if (ctx.element() != null) {
             for (antlrParser.ElementContext el : ctx.element()) {
                 String childText = el.getText();
-                ruleBlockChildrenTexts.add(childText);
+                alternativeList.add(childText);
             }
         }
+    }
+
+    @Override public void exitAlternative(antlrParser.AlternativeContext ctx) {
+        ruleBlockChildrenTexts.add(alternativeList);
+        alternativeList = new ArrayList<>();
     }
 }
