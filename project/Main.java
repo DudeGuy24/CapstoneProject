@@ -18,7 +18,6 @@ public class Main {
         }
         return files;
     }
-    /* */
     private static void handleDir(File dir) {
         ArrayList<File> fileList = new ArrayList<File>();
         File[] arr = dir.listFiles();

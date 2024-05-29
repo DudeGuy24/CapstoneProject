@@ -35,10 +35,16 @@ public class myListener extends antlrParserBaseListener {
                 String s = firstList.get(i);
                 if (i == 0 && s.equals(key)) {
                     leftRecursionFound = true;
+                    System.out.println("Rule " + key + " contained left recursion at alternative " + i + " with element '" + s + "'");
                 } 
                 else if (i == firstList.size() - 1 && s.equals(key)) {
                     rightRecursionFound = true;
+                    System.out.println("Rule " + key + " contained left recursion at alternative " + i + " with element '" + s + "'");
+                    writer.print("* ");
                 } 
+                else if (leftRecursionFound){
+                    writer.print(s + "* "); 
+                }
                 else {
                     writer.print(s + " ");
                 }
@@ -52,25 +58,26 @@ public class myListener extends antlrParserBaseListener {
                     String s = innerList.get(i);
                     if (i == 0 && s.equals(key)) {
                         leftRecursionFound = true;
+                        System.out.println("Rule " + key + " contained left recursion at alternative " + index + " with element '" + s + "'");
                     } 
                     else if (i == innerList.size() - 1 && s.equals(key)) {
                         rightRecursionFound = true;
+                        System.out.println("Rule " + key + " contained left recursion at alternative " + index + " with element '" + s + "'");
                         writer.print("* ");
                     } 
+                    else if (leftRecursionFound){
+                        writer.print(s + "* "); 
+                    }
                     else {
                         writer.print(s + " ");
                     }
                 }
                 writer.println();
             }
+            if (leftRecursionFound || rightRecursionFound){
+                writer.println(" | /* empty */");
+            }
             writer.println(" ; ");
-            if (leftRecursionFound) {
-                writer.println("This rule contained left recursion");
-            }
-            if (rightRecursionFound) {
-                writer.println("This rule contained right recursion");
-            }
-
             writer.println();
         }
         writer.flush();

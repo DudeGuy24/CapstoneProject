@@ -6,36 +6,20 @@ start : t0 EOF
 t0 : 'program' t13838 t5180 t14011 t14183
     ;
  
-// t13838 : t13838 t101
-//     | t101 t13838
-//     | tlower
-//     ;
-
-// Left/right recursion elimination to +-lists.
-// There are left- right recursive alternatives, which means we can
-// independently listify those elements.
-// t13838 : t101+ t13838 t101+
-//     | tlower
-//     ;
-
-// Left/right recursion elimination to *-lists (fixpointing)
-// There are left- right recursive alternatives, which means we can
-// independently listify those elements; moreover, there's a list of
-// alternatives (here only tlower) that are not recursive, so we can
-// actually fixpoint.
-t13838 : t101* tlower t101*;
+t13838 : t13838 t101
+    | t101 t13838
+    | tlower
+    ;
 
  
 t101 : ' '
     | '\n'
     ;
  
-// t5180 : t5180 t101
-//     | '='
-//     ;
+t5180 : t5180 t101
+    | '='
+    ;
 
-// Right-recursion elimination
-t5180 : '=' t101* ;
  
 t14011 : t14011 t101
     | '{' t101 '}'
@@ -44,12 +28,10 @@ t14011 : t14011 t101
     | '{' t15085 t11080 t10286 t7207 '}'
     ;
  
-// t14183 : t14183 t101
-//     | '.'
-//     ;
+t14183 : t14183 t101
+    | '.'
+    ;
 
-// Right-recursion elimination
-t14183 : '.' t101* ;
  
 t13664 : t13316 t12236
     | t101 t13664
@@ -67,14 +49,12 @@ t13316 : t13838 t9083
     | t13490 t9083
     ;
  
-// t9083 : t101 t9083
-//     | t5180 t1720
-//     | t5180 t13838
-//     | t9083 t101
-//     ;
-// Left/right recursion elimination with fixpoint, left-factoring of
-// alternatives
-t9083 : t101* (t5180 (t1720 | t13838)) t101*;
+t9083 : t101 t9083
+    | t5180 t1720
+    | t5180 t13838
+    | t9083 t101
+     ;
+
  
 t1720 : '(' t13838 ')'
     | t13838 t3465
@@ -97,11 +77,10 @@ t9486 : t9486 t101
     | t12421 t11474
     ;
  
-// t7207 : t7207 t101
-//     | ';'
-//     ;
-// Right-recursion elimination
-t7207 : ';' t101* ;
+t7207 : t7207 t101
+    | ';'
+    ;
+
  
 t11474 : 'while'
     | t10486 t11474
