@@ -25,18 +25,20 @@ public class myListener extends antlrParserBaseListener {
         for (Map.Entry<String, List<List<String>>> entry : ruleMap.entrySet()) {
             String key = entry.getKey();
             List<List<String>> value = entry.getValue();
-
+            
             System.out.println("Key: " + key);
             boolean leftRecursionFound = false;
             boolean rightRecursionFound = false;
+            List<List<String>> remove = new ArrayList<>();
 
             for (List<String> innerList : value) {
                 System.out.print("  [");
                 for (int i = 0; i < innerList.size(); i++) {
                     String s = innerList.get(i);
-                    System.out.print(s + " ");
+                    System.out.print( s + " ");
                     if (i == 0 && s.equals(key)) {
                         leftRecursionFound = true;
+                        remove.add(innerList);
                     }
                     if (i == innerList.size() - 1 && s.equals(key)) {
                         rightRecursionFound = true;
@@ -44,12 +46,25 @@ public class myListener extends antlrParserBaseListener {
                 }
                 System.out.println("]");
             }
+
             if (leftRecursionFound) {
                 System.out.println("This rule contains left recursion");
             }
             if (rightRecursionFound) {
                 System.out.println("This rule contains right recursion");
             }
+            
+            for (List<String> innerList : remove) {
+                innerList.remove(0);
+                System.out.print("  [");
+                for (int i = 0; i < innerList.size(); i++) {
+                    String s = innerList.get(i);
+                    System.out.print( s + " ");
+                }
+                System.out.println("]");
+
+            }
+
             System.out.println("");
         }
     }
