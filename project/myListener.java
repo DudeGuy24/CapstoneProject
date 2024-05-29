@@ -29,53 +29,60 @@ public class myListener extends antlrParserBaseListener {
             writer.print(key + " : ");
             boolean leftRecursionFound = false;
             boolean rightRecursionFound = false;
+            boolean switc = false; 
 
             List<String> firstList = value.get(0);
             for (int i = 0; i < firstList.size(); i++) {
                 String s = firstList.get(i);
                 if (i == 0 && s.equals(key)) {
                     leftRecursionFound = true;
+                    switc = true;
                     System.out.println("Rule " + key + " contained left recursion at alternative " + i + " with element '" + s + "'");
                 } 
                 else if (i == firstList.size() - 1 && s.equals(key)) {
                     rightRecursionFound = true;
+                    switc = true;
                     System.out.println("Rule " + key + " contained left recursion at alternative " + i + " with element '" + s + "'");
                     writer.print("* ");
                 } 
-                else if (leftRecursionFound){
-                    writer.print(s + "* "); 
-                }
+
                 else {
                     writer.print(s + " ");
                 }
             }
             writer.println();
 
+
             for (int index = 1; index < value.size(); index++) {
                 List<String> innerList = value.get(index);
                 writer.print(" | ");
+                leftRecursionFound = false;
+                rightRecursionFound = false;
                 for (int i = 0; i < innerList.size(); i++) {
                     String s = innerList.get(i);
                     if (i == 0 && s.equals(key)) {
                         leftRecursionFound = true;
+                        switc = true;
                         System.out.println("Rule " + key + " contained left recursion at alternative " + index + " with element '" + s + "'");
                     } 
                     else if (i == innerList.size() - 1 && s.equals(key)) {
                         rightRecursionFound = true;
+                        switc = true;
                         System.out.println("Rule " + key + " contained left recursion at alternative " + index + " with element '" + s + "'");
-                        writer.print("* ");
+                        if(!leftRecursionFound){
+                            writer.print("* ");
+                        }
                     } 
-                    else if (leftRecursionFound){
-                        writer.print(s + "* "); 
-                    }
+
                     else {
                         writer.print(s + " ");
                     }
                 }
                 writer.println();
             }
-            if (leftRecursionFound || rightRecursionFound){
-                writer.println(" | /* empty */");
+
+            if (switc){
+                writer.println(" | ");
             }
             writer.println(" ; ");
             writer.println();
