@@ -1,32 +1,32 @@
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class myListener extends antlrParserBaseListener {
 
     private File file = null;
+    private PrintWriter writer = null;
     private Map<String, List<List<String>>> ruleMap = new HashMap<>();
     private String ruleRef;
     private List<List<String>> ruleBlockChildrenTexts = new ArrayList<>();
     private List<String> alternativeList = new ArrayList<>();
 
-    /**
-     * Sets the file currently being processed.
-     *
-     * @param file The file to set.
-     */
     public void setFile(File file) {
-        this.file = file;
+        this.file = file; 
+        String newFileName = file.getPath().replace(".txt", "_results.txt"); 
+        try {
+            this.writer = new PrintWriter(new FileWriter(newFileName, true)); 
+        } catch (IOException e) {
+            System.err.println("Failed to open file for writing: " + e.getMessage());
+        }
     }
+    
 
     public void printRuleMap() {
         for (Map.Entry<String, List<List<String>>> entry : ruleMap.entrySet()) {
             String key = entry.getKey();
             List<List<String>> value = entry.getValue();
             
-            System.out.print(key + " : ");
+            writer.print(key + " : ");
             boolean leftRecursionFound = false;
             boolean rightRecursionFound = false;
 
@@ -40,14 +40,14 @@ public class myListener extends antlrParserBaseListener {
                     rightRecursionFound = true;
                 } 
                 else {
-                    System.out.print(s + " ");
+                    writer.print(s + " ");
                 }
             }
-            System.out.println("");
+            writer.println();
 
             for (int index = 1; index < value.size(); index++) {
                 List<String> innerList = value.get(index);
-                System.out.print(" | ");
+                writer.print(" | ");
                 for (int i = 0; i < innerList.size(); i++) {
                     String s = innerList.get(i);
                     if (i == 0 && s.equals(key)) {
@@ -55,24 +55,25 @@ public class myListener extends antlrParserBaseListener {
                     } 
                     else if (i == innerList.size() - 1 && s.equals(key)) {
                         rightRecursionFound = true;
-                        System.out.print("* ");
+                        writer.print("* ");
                     } 
                     else {
-                        System.out.print(s + " ");
+                        writer.print(s + " ");
                     }
                 }
-                System.out.println("");
+                writer.println();
             }
-            System.out.println(" ; ");
+            writer.println(" ; ");
             if (leftRecursionFound) {
-                System.out.println("This rule contained left recursion");
+                writer.println("This rule contained left recursion");
             }
             if (rightRecursionFound) {
-                System.out.println("This rule contained right recursion");
+                writer.println("This rule contained right recursion");
             }
 
-            System.out.println("");
+            writer.println();
         }
+        writer.flush();
     }
 
     @Override
