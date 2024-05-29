@@ -4,6 +4,10 @@ To compile the code, please ensure that all necessary dependencies have been ins
 
 Once dependencies are set up, execute the following command:
 
-./compile.sh 
+./compile.sh
+
+Then cd into class. Run the following:
+
+java Main <path to language> 
 
 This will compile the code and prepare it for execution.  

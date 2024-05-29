@@ -1,0 +1,236 @@
+t1545 : t83* 
+ | 'WAARHEID' 
+ | 
+ ; 
+
+t1776 : t3 t602 'DAN' 
+ | t3 t83 'DAN' 
+ ; 
+
+t2658 : 'EENHEID' t83 t3 t83 
+ | 'EENHEID' t83 t3 t367 
+ ; 
+
+t1313 : '=' t1084 
+ | '=' t83 t3 
+ ; 
+
+tletters : tletter 
+ | tletter* 
+ | 
+ ; 
+
+talphanums : talphanum 
+ | talphanum* 
+ | 
+ ; 
+
+talphanum : 'a' 
+ | 'b' 
+ | 'c' 
+ | 'd' 
+ | 'e' 
+ | 'f' 
+ | 'g' 
+ | 'h' 
+ | 'i' 
+ | 'j' 
+ | 'k' 
+ | 'l' 
+ | 'm' 
+ | 'n' 
+ | 'o' 
+ | 'p' 
+ | 'q' 
+ | 'r' 
+ | 's' 
+ | 't' 
+ | 'u' 
+ | 'v' 
+ | 'w' 
+ | 'x' 
+ | 'y' 
+ | 'z' 
+ | 'A' 
+ | 'B' 
+ | 'C' 
+ | 'D' 
+ | 'E' 
+ | 'F' 
+ | 'G' 
+ | 'H' 
+ | 'I' 
+ | 'J' 
+ | 'K' 
+ | 'L' 
+ | 'M' 
+ | 'N' 
+ | 'O' 
+ | 'P' 
+ | 'Q' 
+ | 'R' 
+ | 'S' 
+ | 'T' 
+ | 'U' 
+ | 'V' 
+ | 'W' 
+ | 'X' 
+ | 'Y' 
+ | 'Z' 
+ | '0' 
+ | '1' 
+ | '2' 
+ | '3' 
+ | '4' 
+ | '5' 
+ | '6' 
+ | '7' 
+ | '8' 
+ | '9' 
+ ; 
+
+start : t0 EOF 
+ ; 
+
+t83 : ' ' 
+ | '\n' 
+ ; 
+
+t2013 : 'TERWYL' 
+ | t83 '-' 
+ | 
+ ; 
+
+t602 : t83 
+ | '(' ')' 
+ | 
+ ; 
+
+t103 : '(' ')' 
+ | '(' t3 t83 ':' t1545 ')' 
+ ; 
+
+t367 : t83 
+ | '[' t16 ']' 
+ | 
+ ; 
+
+tdigits : tdigit 
+ | tdigit* 
+ | 
+ ; 
+
+t1084 : t83 t16 
+ | t83 t106 
+ | '(' t3 ')' 
+ ; 
+
+t106 : '(' t3 ')' 
+ | talphanums 
+ ; 
+
+t3062 : 'VER' 
+ | t83 t3 ',' 
+ | 
+ ; 
+
+t16 : tdigits 
+ ; 
+
+tletter : 'a' 
+ | 'b' 
+ | 'c' 
+ | 'd' 
+ | 'e' 
+ | 'f' 
+ | 'g' 
+ | 'h' 
+ | 'i' 
+ | 'j' 
+ | 'k' 
+ | 'l' 
+ | 'm' 
+ | 'n' 
+ | 'o' 
+ | 'p' 
+ | 'q' 
+ | 'r' 
+ | 's' 
+ | 't' 
+ | 'u' 
+ | 'v' 
+ | 'w' 
+ | 'x' 
+ | 'y' 
+ | 'z' 
+ | 'A' 
+ | 'B' 
+ | 'C' 
+ | 'D' 
+ | 'E' 
+ | 'F' 
+ | 'G' 
+ | 'H' 
+ | 'I' 
+ | 'J' 
+ | 'K' 
+ | 'L' 
+ | 'M' 
+ | 'N' 
+ | 'O' 
+ | 'P' 
+ | 'Q' 
+ | 'R' 
+ | 'S' 
+ | 'T' 
+ | 'U' 
+ | 'V' 
+ | 'W' 
+ | 'X' 
+ | 'Y' 
+ | 'Z' 
+ ; 
+
+t0 : t2658 'BEGIN' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 ';' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 ';' t83 'KONST' t83 t3 t83 ':' t1545 t83 ':' t1313 ';' t83 t3062 t83 t3 t83 ':' t1545 t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 ';' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 ';' t83 t3062 t83 t3 t83 ':' t1545 t83 'BEGIN' t83 t3062 t83 t3 t83 ':' t1545 t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 t83 'BEGIN' t83 t3062 t83 t3 t83 ':' t1545 t83 'EINDE' ';' t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'PROSEDURE' t83 t3 t103 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 ';' t83 'KONST' t83 t3 t83 ':' t1545 t83 ':' t1313 t83 'INDIEN' t1084 t83 'DAN' t83 t3 t83 ':' t1313 t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'PROSEDURE' t83 t3 t103 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 t83 'INDIEN' t83 t1776 t83 t2013 t83 t3 t83 'DOEN' t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'PROSEDURE' t83 t3 t103 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 t83 t3 t83 ':' t1313 t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 t2013 t83 t3 t83 'DOEN' t83 t2013 t83 t3 t83 'DOEN' t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 t3062 t83 t3 t83 ':' t1545 ';' t83 'PROSEDURE' t83 t3 t103 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 ';' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 ';' t83 t3062 t83 t3 t83 ':' t1545 t83 t3 t602 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 t3062 t83 t3 t83 ':' t1545 t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 t3062 t83 t3 t83 ':' t1545 t83 t3 t83 ':' t1313 ';' t83 t3 t602 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 t3 t83 ':' t1313 t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'BEGIN' t83 'EINDE' ';' t83 t2013 t83 t3 t83 'DOEN' t83 'BEGIN' t83 'EINDE' ';' t83 'INDIEN' t83 t1776 t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 t83 t2013 t1084 t83 'DOEN' t83 t2013 t83 t3 t83 'DOEN' t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 ';' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 t83 'INDIEN' t83 t1776 t83 t3 t602 'ANDERS' t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 t83 'INDIEN' t83 t1776 t83 'INDIEN' t83 t1776 t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 t83 t2013 t1084 t83 'DOEN' t83 'INDIEN' t83 t1776 t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'INDIEN' t1084 t83 'DAN' t83 t3 t83 ':' t1313 t83 'ANDERS' t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'INDIEN' t83 '-' t83 t1776 t83 'INDIEN' t83 t1776 t83 'BEGIN' t83 'EINDE' t83 'ANDERS' t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'KONST' t83 t3 t83 ':' t1545 t83 ':' t1313 t83 'INDIEN' t83 t1776 t83 t3 t602 'ANDERS' t83 'BEGIN' t83 'EINDE' ';' t83 'INDIEN' t83 t1776 t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'PROSEDURE' t83 t3 t103 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 ';' t83 'FUNKSIE' t83 t3 t103 t83 ':' t1545 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 ';' t83 t3062 t83 t3 t83 ':' t1545 ';' t83 t3062 t83 t3 t83 ':' t1545 t83 'INDIEN' t1084 t83 'DAN' t83 'INDIEN' t83 t1776 t83 'BEGIN' t83 'EINDE' ';' t83 'INDIEN' t83 t1776 t83 'BEGIN' t83 'EINDE' ';' t83 t3 t602 ';' t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 'PROSEDURE' t83 t3 t103 t83 ':' '=' t83 'BEGIN' t83 'EINDE' t83 t3 t83 t2013 t1084 t83 'DOEN' t83 t2013 t83 t3 t83 'DOEN' t83 'BEGIN' t83 'EINDE' ';' t83 'INDIEN' t83 t1776 t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 t2013 t83 t3 t602 'DOEN' t83 t3 t602 ';' t83 'INDIEN' t83 t1776 t83 'BEGIN' t83 'EINDE' ';' t83 t3 t83 ':' t1313 t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 t3062 t83 t3 t83 ':' t1545 ';' t83 'KONST' t83 t3 t83 ':' t1545 t83 ':' t1313 ';' t83 'KONST' t83 t3 t83 ':' t1545 t83 ':' t1313 t83 'EINDE' t83 t3 t83 '.' t83 
+ | t2658 'BEGIN' t83 t3 t602 ';' t83 'INDIEN' t83 t1776 t83 'BEGIN' t83 'EINDE' ';' t83 t3 t83 ':' t1313 ';' t83 'BEGIN' t83 'EINDE' t83 'EINDE' t83 t3 t83 '.' t83 
+ ; 
+
+tdigit : '0' 
+ | '1' 
+ | '2' 
+ | '3' 
+ | '4' 
+ | '5' 
+ | '6' 
+ | '7' 
+ | '8' 
+ | '9' 
+ ; 
+
+t3 : tletters 
+ ; 
+
