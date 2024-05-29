@@ -40,10 +40,11 @@ public class myListener extends antlrParserBaseListener {
                     rightRecursionFound = true;
                 } 
                 else {
-                    System.out.println(s + " ");
+                    System.out.print(s + " ");
                 }
             }
-            
+            System.out.println("");
+
             for (int index = 1; index < value.size(); index++) {
                 List<String> innerList = value.get(index);
                 System.out.print(" | ");
@@ -54,6 +55,7 @@ public class myListener extends antlrParserBaseListener {
                     } 
                     else if (i == innerList.size() - 1 && s.equals(key)) {
                         rightRecursionFound = true;
+                        System.out.print("* ");
                     } 
                     else {
                         System.out.print(s + " ");
